@@ -23,4 +23,14 @@ public class EmployeeService {
 	public List<Employee> getEmployee() {
 		return employeeDao.getEmployee();
 	}
+
+	public void deleteData(int id) {
+		employeeDao.deleteData(id);
+		
+	}
+
+	public void updateData(Employee employee) {
+		employeeDao.updateData(employee);
+		
+	}
 }
