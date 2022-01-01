@@ -54,4 +54,10 @@ public class EmployeeDao {
 		q.executeUpdate();
 		tx.commit();
 	}
+
+	public Employee fetchbyId(int id) {
+		Session session = sessionFactory.openSession();
+		Employee emp = session.load(Employee.class, id);
+		return emp;
+	}
 }

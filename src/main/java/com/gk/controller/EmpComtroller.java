@@ -20,7 +20,7 @@ public class EmpComtroller {
 
 	@RequestMapping(value = "/save", method = RequestMethod.GET)
 	public String getView(Model model) {
-	    model.addAttribute("employee", new Employee()); 
+		model.addAttribute("employee", new Employee());
 		return "index";
 	}
 
@@ -36,11 +36,14 @@ public class EmpComtroller {
 		model.addAttribute("employee", employees);
 		return "viewpage";
 	}
-	@RequestMapping(value = "employee/update", method = RequestMethod.PUT)
-	public String updateData(@ModelAttribute("employee") Employee employee) {
-		employeeService.updateData(employee);
-		return "redirect:/";
+
+	@RequestMapping(value = "employee/updateForm", method = RequestMethod.PUT)
+	public String fetchbyId(@RequestParam("id") int id, Model model) {
+		Employee emp = employeeService.fetchbyId(id);
+		model.addAttribute("employee", emp);
+		return "update";
 	}
+	
 
 	@RequestMapping(value = "employee/delete", method = RequestMethod.GET)
 	public String deleteData(@RequestParam("id") int id) {

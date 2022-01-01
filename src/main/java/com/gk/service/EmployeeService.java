@@ -33,4 +33,8 @@ public class EmployeeService {
 		employeeDao.updateData(employee);
 		
 	}
+
+	public Employee fetchbyId(int id) {
+	  return employeeDao.fetchbyId(id);
+	}
 }
