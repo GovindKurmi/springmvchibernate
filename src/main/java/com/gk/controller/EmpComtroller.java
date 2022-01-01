@@ -2,13 +2,13 @@ package com.gk.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gk.model.Employee;
 import com.gk.service.EmployeeService;
@@ -18,26 +18,35 @@ public class EmpComtroller {
 	@Autowired
 	EmployeeService employeeService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String getView() {
+	@RequestMapping(value = "/save", method = RequestMethod.GET)
+	public String getView(Model model) {
+	    model.addAttribute("employee", new Employee()); 
 		return "index";
 	}
 
-	@RequestMapping(value = "/view", method = RequestMethod.POST)
-	public String saveEmployee(HttpServletRequest request, Model model) {
-		Employee emp = new Employee();
-		emp.setName(request.getParameter("name"));
-		emp.setEmail(request.getParameter("email"));
-		emp.setAddress(request.getParameter("address"));
-		emp.setSalary(request.getParameter("salary"));
-		employeeService.saveEmployee(emp);
-		return "redirect:/viewdata";
+	@RequestMapping(value = "/savedata", method = RequestMethod.POST)
+	public String saveEmployee(@ModelAttribute("employee") Employee employee) {
+		employeeService.saveEmployee(employee);
+		return "redirect:/";
 	}
-	@RequestMapping(value = "/viewdata", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String viewData(Model model) {
-		  List <Employee> employees = employeeService.getEmployee();
-		  model.addAttribute("employee", employees);
-	        return "viewpage";
+		List<Employee> employees = employeeService.getEmployee();
+		model.addAttribute("employee", employees);
+		return "viewpage";
+	}
+	@RequestMapping(value = "employee/update", method = RequestMethod.PUT)
+	public String updateData(@ModelAttribute("employee") Employee employee) {
+		employeeService.updateData(employee);
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "employee/delete", method = RequestMethod.GET)
+	public String deleteData(@RequestParam("id") int id) {
+		employeeService.deleteData(id);
+		System.out.println(id);
+		return "redirect:/";
 	}
 
 }

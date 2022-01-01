@@ -18,7 +18,7 @@
 		<div class="col-md-offset-1 col-md-10">
 			<h2>CRM - Employee Manager</h2>
 			<hr />
-			<a href="/" class="btn btn-primary" type="button">Add Employee</a> <br />
+			<a href="/springmvchibernate/save" class="btn btn-primary" type="button">Add Employee</a> <br />
 			<br />
 			<div class="panel panel-info">
 				<div class="panel-heading">
@@ -31,6 +31,8 @@
 							<th>Email</th>
 							<th>Address</th>
 							<th>Salary</th>
+							<th>Update/Delete</th>
+							
 						</tr>
 
 						<!-- loop over and print our customers -->
